@@ -327,9 +327,9 @@ async def find_helpful_resources_with_yellowcake(report_data: dict, ai_enrichmen
     - Stack Overflow solutions
     - Official documentation
     - GitHub issues
-    - Tutorial articles
     """
     if not YELLOWCAKE_API_KEY:
+        print("⚠️  Yellowcake API key not set")
         return []
     
     try:
@@ -338,86 +338,82 @@ async def find_helpful_resources_with_yellowcake(report_data: dict, ai_enrichmen
             
             # Build search query from AI analysis
             error_description = ai_enrichment.get('description', report_data['message'])
-            category = ai_enrichment.get('category', 'unknown')
-            platform = report_data.get('platform', 'unknown')
+            category = ai_enrichment.get('category', report_data['type'])
+            platform = report_data.get('platform', 'web')
             
-            # Search Stack Overflow for solutions
-            stackoverflow_query = f"{category} {platform} error solution"
+            print(f"🔍 Yellowcake searching for: {category} on {platform}")
             
             resources = []
             
-            # Use Yellowcake to extract Stack Overflow solutions
+            # Search Stack Overflow
+            stackoverflow_query = f"{category} {platform} {report_data['message']}"
+            stackoverflow_url = f"https://stackoverflow.com/search?q={stackoverflow_query.replace(' ', '+')}"
+            
+            print(f"📚 Searching Stack Overflow: {stackoverflow_url}")
+            
             try:
-                async with httpx.AsyncClient(timeout=10.0) as client:
+                async with httpx.AsyncClient(timeout=15.0) as client:
                     response = await client.post(
-                        "https://api.yellowcake.dev/v1/extract",
+                        "https://api.yellowcake.dev/v1/scrape",
                         headers={
                             "Content-Type": "application/json",
-                            "X-API-Key": YELLOWCAKE_API_KEY,
+                            "Authorization": f"Bearer {YELLOWCAKE_API_KEY}",
                         },
                         json={
-                            "url": f"https://stackoverflow.com/search?q={stackoverflow_query}",
-                            "prompt": f"Find top 3 relevant solutions for: {error_description}"
+                            "url": stackoverflow_url,
+                            "extract": {
+                                "questions": {
+                                    "selector": ".question-summary",
+                                    "fields": {
+                                        "title": ".question-hyperlink",
+                                        "url": ".question-hyperlink@href",
+                                        "votes": ".vote-count-post",
+                                        "answers": ".status strong"
+                                    },
+                                    "limit": 3
+                                }
+                            }
                         }
                     )
                     
+                    print(f"📊 Yellowcake response status: {response.status_code}")
+                    
                     if response.status_code == 200:
                         stackoverflow_data = response.json()
-                        if stackoverflow_data.get('results'):
-                            resources.append({
-                                "type": "stackoverflow",
-                                "title": "Stack Overflow Solutions",
-                                "links": stackoverflow_data.get('results', [])[:3],
-                                "description": "Community solutions for similar issues"
-                            })
-            except Exception as e:
-                print(f"Yellowcake Stack Overflow search failed: {e}")
-            
-            # Search for official documentation
-            if platform in ['ios', 'android', 'web']:
-                doc_url = {
-                    'ios': 'https://developer.apple.com',
-                    'android': 'https://developer.android.com',
-                    'web': 'https://developer.mozilla.org'
-                }.get(platform)
-                
-                try:
-                    async with httpx.AsyncClient(timeout=10.0) as client:
-                        response = await client.post(
-                            "https://api.yellowcake.dev/v1/extract",
-                            headers={
-                                "Content-Type": "application/json",
-                                "X-API-Key": YELLOWCAKE_API_KEY,
-                            },
-                            json={
-                                "url": doc_url,
-                                "prompt": f"Find documentation for: {error_description}"
-                            }
-                        )
+                        print(f"📦 Yellowcake data: {stackoverflow_data}")
                         
-                        if response.status_code == 200:
-                            doc_data = response.json()
-                            if doc_data.get('results'):
+                        questions = stackoverflow_data.get('data', {}).get('questions', [])
+                        if questions:
+                            for q in questions[:3]:
                                 resources.append({
-                                    "type": "documentation",
-                                    "title": f"{platform.upper()} Official Documentation",
-                                    "links": doc_data.get('results', [])[:2],
-                                    "description": "Official platform documentation"
+                                    "type": "stackoverflow",
+                                    "title": q.get('title', 'Stack Overflow Solution'),
+                                    "url": f"https://stackoverflow.com{q.get('url', '')}",
+                                    "votes": q.get('votes', '0'),
+                                    "answers": q.get('answers', '0')
                                 })
-                except Exception as e:
-                    print(f"Yellowcake documentation search failed: {e}")
+                    else:
+                        print(f"❌ Yellowcake error: {response.status_code} - {response.text}")
+            except Exception as e:
+                print(f"❌ Yellowcake Stack Overflow search failed: {e}")
+                sentry_sdk.capture_exception(e)
             
             # Add to Sentry context
             if resources:
                 sentry_sdk.set_context("helpful_resources", {
-                    "resources": resources,
+                    "count": len(resources),
                     "source": "yellowcake"
                 })
+                print(f"✅ Found {len(resources)} helpful resources")
+            else:
+                print("⚠️  No resources found")
             
             return resources
             
     except Exception as e:
         sentry_sdk.capture_exception(e)
+        print(f"❌ Yellowcake function failed: {e}")
+        return []
         print(f"Yellowcake resource search failed: {e}")
         return []
 
