@@ -43,6 +43,24 @@
                 </button>
             </div>
 
+            <!-- Quick Context (Always visible) -->
+            <div class="quick-context">
+                <div class="form-group">
+                    <label for="quickDescription">📝 Quick note for developers (optional)</label>
+                    <textarea 
+                        id="quickDescription" 
+                        rows="2" 
+                        placeholder="e.g., 'Happened when I clicked Save'"
+                    ></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="screenshot">📸 Screenshot (optional)</label>
+                    <input type="file" id="screenshot" accept="image/*" capture="environment">
+                    <div id="screenshotPreview" class="screenshot-preview hidden"></div>
+                </div>
+            </div>
+
             <div class="divider">
                 <span>or</span>
             </div>
@@ -78,11 +96,6 @@
 
             <!-- Status Messages -->
             <div id="statusMessage" class="status-message hidden"></div>
-
-            <!-- AI Enrichment Status -->
-            <div id="aiStatus" class="ai-status hidden">
-                <div class="ai-badge">🤖 AI analyzing...</div>
-            </div>
 
             <!-- Queue Status -->
             <div id="queueStatus" class="queue-status hidden">

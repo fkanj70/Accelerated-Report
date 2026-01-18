@@ -71,12 +71,33 @@ function displayReports(reports) {
                 <span class="status-badge ${report.status}">${report.status}</span>
             </div>
             
-            ${report.summary ? `
+            ${report.description ? `
                 <div class="report-enrichment">
-                    <strong>AI Summary:</strong> ${report.summary}<br>
+                    <strong>🤖 AI Analysis:</strong> ${report.description}<br>
                     <strong>Severity:</strong> <span class="severity ${report.severity}">${report.severity || 'unknown'}</span><br>
                     <strong>Category:</strong> ${report.category || 'unknown'}<br>
+                    ${report.developer_action ? `<strong>Action:</strong> ${report.developer_action}<br>` : ''}
                     <strong>Confidence:</strong> ${formatConfidence(report.confidence)}
+                </div>
+            ` : ''}
+            
+            ${report.helpful_resources && report.helpful_resources.length > 0 ? `
+                <div class="helpful-resources">
+                    <strong>🔗 Helpful Resources (via Yellowcake):</strong>
+                    <ul>
+                        ${report.helpful_resources.map(resource => `
+                            <li>
+                                <a href="${resource.url}" target="_blank" rel="noopener">${resource.title}</a>
+                                <span class="resource-type">${resource.type}</span>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
+            ` : ''}
+            
+            ${report.sentry_event_id ? `
+                <div class="sentry-link">
+                    <strong>🔍 Sentry Event:</strong> <code>${report.sentry_event_id}</code>
                 </div>
             ` : ''}
         </div>

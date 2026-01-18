@@ -11,11 +11,13 @@ let retryInterval = null;
 const form = document.getElementById('reportForm');
 const submitBtn = document.getElementById('submitBtn');
 const statusMessage = document.getElementById('statusMessage');
-const aiStatus = document.getElementById('aiStatus');
 const chaosModeToggle = document.getElementById('chaosMode');
 const queueStatus = document.getElementById('queueStatus');
 const queueCount = document.getElementById('queueCount');
 const recentList = document.getElementById('recentList');
+const quickDescription = document.getElementById('quickDescription');
+const screenshotInput = document.getElementById('screenshot');
+const screenshotPreview = document.getElementById('screenshotPreview');
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
@@ -28,11 +30,28 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatus(chaosMode ? '⚠️ Chaos Mode Enabled' : '✅ Normal Mode', chaosMode ? 'warning' : 'success');
     });
 
+    // Screenshot preview
+    screenshotInput.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                screenshotPreview.innerHTML = `<img src="${e.target.result}" alt="Screenshot">`;
+                screenshotPreview.classList.remove('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+    });
+
     // Quick action buttons
     document.querySelectorAll('.quick-btn').forEach(btn => {
         btn.addEventListener('click', async (e) => {
             const type = e.currentTarget.dataset.type;
             const message = e.currentTarget.dataset.message;
+            
+            // Get optional context
+            const description = quickDescription.value.trim();
+            const screenshot = screenshotInput.files[0];
             
             // Visual feedback
             e.currentTarget.classList.add('clicked');
@@ -40,10 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             await submitReport({
                 type: type,
-                message: message,
+                message: description ? `${message}. Note: ${description}` : message,
                 platform: detectPlatform(),
                 app_version: '1.0.0',
+                screenshot: screenshot,
             }, true); // true = quick action
+            
+            // Clear context after submit
+            quickDescription.value = '';
+            screenshotInput.value = '';
+            screenshotPreview.innerHTML = '';
+            screenshotPreview.classList.add('hidden');
         });
     });
 });
@@ -74,11 +100,6 @@ form.addEventListener('submit', async (e) => {
 async function submitReport(reportData, isQuickAction = false) {
     if (submitBtn) submitBtn.disabled = true;
     showStatus('📤 Sending...', 'info');
-    
-    // Show AI processing for quick actions
-    if (isQuickAction) {
-        showAIStatus(true);
-    }
     
     try {
         // Chaos mode: simulate random failures
@@ -123,30 +144,6 @@ async function submitReport(reportData, isQuickAction = false) {
         showStatus('⏳ Queued - will retry automatically', 'warning');
     } finally {
         if (submitBtn) submitBtn.disabled = false;
-        showAIStatus(false);
-    }
-}
-
-// Show/hide AI processing indicator
-let aiStatusTimeout = null;
-function showAIStatus(show) {
-    if (aiStatus) {
-        // Clear any existing timeout
-        if (aiStatusTimeout) {
-            clearTimeout(aiStatusTimeout);
-            aiStatusTimeout = null;
-        }
-        
-        if (show) {
-            aiStatus.classList.remove('hidden');
-            // Auto-hide after 10 seconds as failsafe
-            aiStatusTimeout = setTimeout(() => {
-                aiStatus.classList.add('hidden');
-                aiStatusTimeout = null;
-            }, 10000);
-        } else {
-            aiStatus.classList.add('hidden');
-        }
     }
 }
 
