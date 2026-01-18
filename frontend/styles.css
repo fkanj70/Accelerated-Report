@@ -655,4 +655,7 @@ input:checked + .slider:before {
         align-items: flex-start;
     }
 }
-
+.logo {
+  height: 48px;
+  width: auto;
+}
