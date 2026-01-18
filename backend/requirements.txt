@@ -6,5 +6,6 @@ httpx
 google-generativeai
 numpy
 scikit-learn
+Pillow
 # Yellowcake for finding helpful resources
 requests

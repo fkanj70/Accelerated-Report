@@ -1,100 +1,77 @@
 INFO:     Will watch for changes in these directories: ['/Users/jingyu/Documents/Sentry/backend']
 INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [87941] using WatchFiles
-INFO:     Started server process [87944]
+INFO:     Started reloader process [90170] using WatchFiles
+INFO:     Started server process [90174]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ⚠️  AI libraries not installed. Install with: pip install google-generativeai numpy scikit-learn
 ⚠️  Gemini AI disabled (set GEMINI_API_KEY to enable)
 ✅ Yellowcake enabled (will fetch helpful resources)
 ✅ Sentry monitoring enabled
-INFO:     127.0.0.1:64670 - "GET /health HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64677 - "POST /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64687 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64704 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64719 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64761 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65353 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65393 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65393 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65422 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65435 - "OPTIONS /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65435 - "POST /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65442 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65444 - "GET /screenshots/91c06680-6555-4353-a7df-450a89de5508.png HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65447 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65449 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65454 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65458 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65460 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65465 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65474 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65482 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65482 - "GET /reports HTTP/1.1" 200 OK
 WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [87944]
-INFO:     Started server process [88750]
+INFO:     Finished server process [90174]
+INFO:     Started server process [90339]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [90339]
+INFO:     Started server process [90365]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [90365]
+INFO:     Started server process [90379]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ⚠️  AI libraries not installed. Install with: pip install google-generativeai numpy scikit-learn
 ⚠️  Gemini AI disabled (set GEMINI_API_KEY to enable)
 ✅ Yellowcake enabled (will fetch helpful resources)
 ✅ Sentry monitoring enabled
-INFO:     127.0.0.1:64816 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64837 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64837 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64850 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64857 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64870 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64879 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64889 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64902 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64911 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64918 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64936 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64943 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64955 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64963 - "OPTIONS /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64963 - "POST /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64970 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:64977 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65001 - "GET /reports HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
+INFO:     127.0.0.1:65527 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49155 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49155 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49180 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49195 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49211 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49214 - "GET /reports HTTP/1.1" 200 OK
+WARNING:  WatchFiles detected changes in '.venv/lib/python3.12/site-packages/PIL/PcdImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/PdfParser.py', '.venv/lib/python3.12/site-packages/PIL/_deprecate.py', '.venv/lib/python3.12/site-packages/PIL/FpxImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ExifTags.py', '.venv/lib/python3.12/site-packages/PIL/__main__.py', '.venv/lib/python3.12/site-packages/PIL/ImageDraw2.py', '.venv/lib/python3.12/site-packages/PIL/__init__.py', '.venv/lib/python3.12/site-packages/PIL/MicImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageFilter.py', '.venv/lib/python3.12/site-packages/PIL/PsdImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageStat.py', '.venv/lib/python3.12/site-packages/PIL/PngImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/_util.py', '.venv/lib/python3.12/site-packages/PIL/WalImageFile.py', '.venv/lib/python3.12/site-packages/PIL/IcnsImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/XbmImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/GifImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/PalmImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/SgiImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/JpegImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageFile.py', '.venv/lib/python3.12/site-packages/PIL/PSDraw.py', '.venv/lib/python3.12/site-packages/PIL/PcfFontFile.py', '.venv/lib/python3.12/site-packages/PIL/_binary.py', '.venv/lib/python3.12/site-packages/PIL/_version.py', '.venv/lib/python3.12/site-packages/PIL/IcoImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/TarIO.py', '.venv/lib/python3.12/site-packages/PIL/XpmImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageOps.py', '.venv/lib/python3.12/site-packages/PIL/ImtImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/FtexImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/TiffImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/FontFile.py', '.venv/lib/python3.12/site-packages/PIL/ImageText.py', '.venv/lib/python3.12/site-packages/PIL/MspImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageColor.py', '.venv/lib/python3.12/site-packages/PIL/AvifImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/GdImageFile.py', '.venv/lib/python3.12/site-packages/PIL/Jpeg2KImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/McIdasImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/DcxImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/features.py', '.venv/lib/python3.12/site-packages/PIL/TgaImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/QoiImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/XVThumbImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/_tkinter_finder.py', '.venv/lib/python3.12/site-packages/PIL/GbrImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageMorph.py', '.venv/lib/python3.12/site-packages/PIL/MpegImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageDraw.py', '.venv/lib/python3.12/site-packages/PIL/ImagePath.py', '.venv/lib/python3.12/site-packages/PIL/GimpPaletteFile.py', '.venv/lib/python3.12/site-packages/PIL/SpiderImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/WebPImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/EpsImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageShow.py', '.venv/lib/python3.12/site-packages/PIL/ImageTransform.py', '.venv/lib/python3.12/site-packages/PIL/JpegPresets.py', '.venv/lib/python3.12/site-packages/PIL/Image.py', '.venv/lib/python3.12/site-packages/PIL/ImageChops.py', '.venv/lib/python3.12/site-packages/PIL/ImageMode.py', '.venv/lib/python3.12/site-packages/PIL/CurImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/PixarImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageTk.py', '.venv/lib/python3.12/site-packages/PIL/ImageGrab.py', '.venv/lib/python3.12/site-packages/PIL/PpmImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/IptcImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/GribStubImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageCms.py', '.venv/lib/python3.12/site-packages/PIL/Hdf5StubImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/_typing.py', '.venv/lib/python3.12/site-packages/PIL/GimpGradientFile.py', '.venv/lib/python3.12/site-packages/PIL/BufrStubImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageFont.py', '.venv/lib/python3.12/site-packages/PIL/BmpImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/MpoImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ContainerIO.py', '.venv/lib/python3.12/site-packages/PIL/PdfImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageQt.py', '.venv/lib/python3.12/site-packages/PIL/WmfImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/DdsImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageEnhance.py', '.venv/lib/python3.12/site-packages/PIL/ImagePalette.py', '.venv/lib/python3.12/site-packages/PIL/FitsImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/report.py', '.venv/lib/python3.12/site-packages/PIL/TiffTags.py', '.venv/lib/python3.12/site-packages/PIL/PcxImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageMath.py', '.venv/lib/python3.12/site-packages/PIL/BlpImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/ImageSequence.py', '.venv/lib/python3.12/site-packages/PIL/ImageWin.py', '.venv/lib/python3.12/site-packages/PIL/BdfFontFile.py', '.venv/lib/python3.12/site-packages/PIL/PaletteFile.py', '.venv/lib/python3.12/site-packages/PIL/SunImagePlugin.py', '.venv/lib/python3.12/site-packages/PIL/FliImagePlugin.py'. Reloading...
 INFO:     Shutting down
 INFO:     Waiting for application shutdown.
 INFO:     Application shutdown complete.
-INFO:     Finished server process [88750]
-INFO:     Started server process [89202]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [89202]
-INFO:     Started server process [89208]
+INFO:     Finished server process [90379]
+INFO:     Started server process [90562]
 INFO:     Waiting for application startup.
 INFO:     Application startup complete.
 ⚠️  AI libraries not installed. Install with: pip install google-generativeai numpy scikit-learn
 ⚠️  Gemini AI disabled (set GEMINI_API_KEY to enable)
 ✅ Yellowcake enabled (will fetch helpful resources)
 ✅ Sentry monitoring enabled
-INFO:     127.0.0.1:65048 - "GET /reports HTTP/1.1" 200 OK
-WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [89208]
-INFO:     Started server process [89437]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [89437]
-INFO:     Started server process [89460]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-WARNING:  WatchFiles detected changes in 'main.py'. Reloading...
-INFO:     Shutting down
-INFO:     Waiting for application shutdown.
-INFO:     Application shutdown complete.
-INFO:     Finished server process [89460]
-INFO:     Started server process [89474]
-INFO:     Waiting for application startup.
-INFO:     Application startup complete.
-⚠️  AI libraries not installed. Install with: pip install google-generativeai numpy scikit-learn
-⚠️  Gemini AI disabled (set GEMINI_API_KEY to enable)
-✅ Yellowcake enabled (will fetch helpful resources)
-✅ Sentry monitoring enabled
-INFO:     127.0.0.1:65121 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65166 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65212 - "GET /reports HTTP/1.1" 200 OK
-INFO:     127.0.0.1:65293 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49241 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49254 - "GET /reports HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49254 - "GET /reports HTTP/1.1" 200 OK

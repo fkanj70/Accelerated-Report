@@ -97,41 +97,69 @@ def init_db():
 
 # AI Enrichment Functions
 
-async def enrich_with_gemini(report_data: dict) -> dict:
+async def enrich_with_gemini(report_data: dict, screenshot_path: str = None) -> dict:
     """
-    Use Gemini AI to help user communicate problem better and help developer understand faster.
+    Use Gemini AI to analyze report with screenshot context.
     
-    For USER: Expands minimal input into detailed context
-    For DEVELOPER: Categorizes, prioritizes, and suggests solutions
+    Analyzes: report type, user message, screenshot (if available)
+    Returns: comprehensive summary, categorization, severity, and action items
     """
     if not gemini_model:
         return {}
     
     try:
         with sentry_sdk.start_span(op="ai.inference", description="gemini_enrichment"):
-            # Enhanced prompt to help both user and developer
-            prompt = f"""You are helping with bug reporting. The user submitted a quick report.
+            # Prepare content for Gemini
+            parts = []
+            
+            # Add text prompt
+            prompt = f"""You are an expert bug report analyzer. Analyze this user feedback:
 
-USER INPUT:
-- Type: {report_data['type']}
-- Message: "{report_data['message']}"
-- Platform: {report_data.get('platform', 'unknown')}
+REPORT DETAILS:
+- Type: {report_data['type']} (crash/slow/bug/suggestion)
+- User's Message: "{report_data['message']}"
+- Platform: {report_data.get('platform', 'unknown')}"""
 
-YOUR TASK:
-1. Expand the user's message into a clear problem description (2-3 sentences)
-2. Categorize: crash/performance/bug/feature_request/ui_issue/network
-3. Assess severity: critical/high/medium/low
-4. Suggest what the developer should check first (1 sentence)
-5. Give confidence score (0.0-1.0)
+            if screenshot_path:
+                prompt += "\n- Screenshot: Provided (see image)"
+            
+            prompt += """
+
+YOUR ANALYSIS TASK:
+1. DESCRIPTION: Write a comprehensive 2-3 sentence summary interpreting what the user experienced. If there's a screenshot, describe what you see and how it relates to the reported issue.
+
+2. CATEGORY: Classify into one of: crash/performance/bug/feature_request/ui_issue/network/data_issue
+
+3. SEVERITY: Assess impact: critical/high/medium/low
+   - critical: app unusable, data loss, security issue
+   - high: major feature broken, affects many users
+   - medium: feature partially broken, workaround exists
+   - low: minor issue, cosmetic, edge case
+
+4. DEVELOPER_ACTION: Provide specific actionable steps for the developer (1-2 sentences). If screenshot shows specific UI elements, mention them.
+
+5. CONFIDENCE: Your confidence in this analysis (0.0-1.0)
 
 Respond in this exact format:
-DESCRIPTION: [expanded description]
+DESCRIPTION: [your detailed interpretation]
 CATEGORY: [category]
 SEVERITY: [severity]
-DEVELOPER_ACTION: [what to check]
+DEVELOPER_ACTION: [specific action steps]
 CONFIDENCE: [score]"""
+
+            parts.append(prompt)
             
-            response = gemini_model.generate_content(prompt)
+            # Add screenshot if available
+            if screenshot_path:
+                try:
+                    import PIL.Image
+                    image = PIL.Image.open(screenshot_path)
+                    parts.append(image)
+                except Exception as e:
+                    print(f"Failed to load screenshot for Gemini: {e}")
+            
+            # Generate analysis
+            response = gemini_model.generate_content(parts)
             result_text = response.text.strip()
             
             # Parse response
@@ -491,10 +519,41 @@ async def create_report(report: ReportCreate):
         report_id = str(uuid.uuid4())
         created_at = datetime.utcnow().isoformat()
         
-        # Span 2: AI Enrichment with Gemini (helps user communicate better)
+        # Save screenshot first if provided (needed for Gemini analysis)
+        screenshot_url = None
+        screenshot_path = None
+        if report.screenshot:
+            try:
+                import base64
+                import os
+                
+                # Create screenshots directory
+                screenshots_dir = "screenshots"
+                os.makedirs(screenshots_dir, exist_ok=True)
+                
+                # Extract base64 data
+                if report.screenshot.startswith('data:image'):
+                    # Remove data:image/png;base64, prefix
+                    screenshot_data = report.screenshot.split(',')[1]
+                else:
+                    screenshot_data = report.screenshot
+                
+                # Save to file
+                screenshot_filename = f"{report_id}.png"
+                screenshot_path = os.path.join(screenshots_dir, screenshot_filename)
+                with open(screenshot_path, 'wb') as f:
+                    f.write(base64.b64decode(screenshot_data))
+                
+                screenshot_url = f"/screenshots/{screenshot_filename}"
+                transaction.set_tag("has_screenshot", True)
+            except Exception as e:
+                print(f"Failed to save screenshot: {e}")
+                sentry_sdk.capture_exception(e)
+        
+        # Span 2: AI Enrichment with Gemini (analyzes report + screenshot)
         ai_enrichment = {}
         if gemini_model:
-            ai_enrichment = await enrich_with_gemini(report.dict())
+            ai_enrichment = await enrich_with_gemini(report.dict(), screenshot_path)
             transaction.set_tag("ai_enriched", True)
             transaction.set_tag("ai_category", ai_enrichment.get('category', 'unknown'))
             transaction.set_tag("ai_severity", ai_enrichment.get('severity', 'medium'))
@@ -521,33 +580,6 @@ async def create_report(report: ReportCreate):
         with sentry_sdk.start_span(op="db.query", description="store_report_db"):
             try:
                 import json
-                import base64
-                import os
-                
-                # Save screenshot if provided
-                screenshot_url = None
-                if report.screenshot:
-                    try:
-                        # Create screenshots directory
-                        screenshots_dir = "screenshots"
-                        os.makedirs(screenshots_dir, exist_ok=True)
-                        
-                        # Extract base64 data
-                        if report.screenshot.startswith('data:image'):
-                            # Remove data:image/png;base64, prefix
-                            screenshot_data = report.screenshot.split(',')[1]
-                        else:
-                            screenshot_data = report.screenshot
-                        
-                        # Save to file
-                        screenshot_filename = f"{report_id}.png"
-                        screenshot_path = os.path.join(screenshots_dir, screenshot_filename)
-                        with open(screenshot_path, 'wb') as f:
-                            f.write(base64.b64decode(screenshot_data))
-                        
-                        screenshot_url = f"/screenshots/{screenshot_filename}"
-                    except Exception as e:
-                        print(f"Failed to save screenshot: {e}")
                 
                 cursor = conn.cursor()
                 cursor.execute("""
