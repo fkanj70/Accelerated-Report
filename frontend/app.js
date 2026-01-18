@@ -179,6 +179,7 @@ form.addEventListener('submit', async (e) => {
 // Submit report with chaos mode simulation and AI enrichment
 async function submitReport(reportData, isQuickAction = false) {
     if (submitBtn) submitBtn.disabled = true;
+    setStatus('Sending…');
     showStatus('📤 Sending...', 'info');
     
     try {
@@ -286,6 +287,7 @@ function startQueueProcessor() {
                     message: item.message,
                     platform: item.platform,
                     app_version: item.app_version,
+                    screenshot: item.screenshot || null,
                 }),
             });
             
@@ -300,6 +302,7 @@ function startQueueProcessor() {
             saveQueue(queue);
             updateQueueUI();
             
+            setStatus('Recovered ✅ (delivered)');
             showStatus(`✅ Queued report delivered! ID: ${result.report_id.substring(0, 8)}...`, 'success');
             addToRecent(item, result.report_id);
             
