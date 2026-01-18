@@ -6,29 +6,29 @@ This document breaks down the work for **3 people** working on the Accelerated R
 
 ---
 
-## 🔴 FIRST STEP (EVERYONE TOGETHER - 15 minutes)
+## FIRST STEP (EVERYONE TOGETHER - 15 minutes)
 
 Before anyone can work independently, **one person** (recommend Person 1) must do this:
 
 ### Setup Checklist
-1. ✅ Create Sentry project at [sentry.io](https://sentry.io)
+1. Create Sentry project at [sentry.io](https://sentry.io)
    - Choose Python platform
    - Copy the DSN
    
-2. ✅ Create repository structure
+2. Create repository structure
    - Already done if using this repo!
    
-3. ✅ Agree on API contract
+3. Agree on API contract
    - POST /reports format (already defined in docs)
    - Response format
    
-4. ✅ Share Sentry DSN with team (via secure method)
+4. Share Sentry DSN with team (via secure method)
 
 **Once this is done, everyone can work in parallel.**
 
 ---
 
-## 👤 Person 1: Backend + Sentry (MOST CRITICAL ROLE)
+##  Person 1: Backend + Sentry (MOST CRITICAL ROLE)
 
 ### Responsibility
 Build the FastAPI backend and ensure Sentry is used perfectly. This is the most important role for "Best Use of Sentry" scoring.
@@ -67,7 +67,7 @@ Make sure **every report submission is tracked, traced, and measured in Sentry**
 
 ---
 
-#### Phase 3: Sentry Instrumentation (1-2 hours) ⭐ MOST IMPORTANT
+#### Phase 3: Sentry Instrumentation (1-2 hours)  MOST IMPORTANT
 - [ ] Add transaction: `critical.report_submit`
 - [ ] Add spans:
   - `validate_input`
@@ -116,7 +116,7 @@ Make sure **every report submission is tracked, traced, and measured in Sentry**
 
 ---
 
-## 👤 Person 2: Frontend + UX (USER EXPERIENCE)
+##  Person 2: Frontend + UX (USER EXPERIENCE)
 
 ### Responsibility
 Build the web interface that users see. Make reporting **fast** and **reliable** (offline queue).
@@ -153,7 +153,7 @@ Make sure users can report in **under 10 seconds** and reports **never get lost*
 
 ---
 
-#### Phase 3: Offline Queue (1-2 hours) ⭐ KEY FEATURE
+#### Phase 3: Offline Queue (1-2 hours)  KEY FEATURE
 - [ ] Implement localStorage queue
 - [ ] Save failed reports to queue
 - [ ] Show "⏳ Queued" status
@@ -301,7 +301,7 @@ Make reports **intelligent** without breaking **reliability**.
 
 ---
 
-## 🤝 Integration Points
+## Integration Points
 
 ### When Person 1 & Person 2 Connect
 - **What:** Frontend calls backend API
@@ -320,7 +320,7 @@ Make reports **intelligent** without breaking **reliability**.
 
 ---
 
-## 📋 Daily Standup (Suggested)
+##  Daily Standup (Suggested)
 
 **Each person answers:**
 1. What did I complete yesterday?
@@ -337,7 +337,7 @@ Make reports **intelligent** without breaking **reliability**.
 
 ---
 
-## 🎯 Priority Order
+## Priority Order
 
 If you run out of time, focus on this order:
 
@@ -358,7 +358,7 @@ If you run out of time, focus on this order:
 
 ---
 
-## 🚨 Emergency Protocol
+## Emergency Protocol
 
 **If someone gets blocked:**
 1. Don't stay blocked - ask for help immediately
@@ -372,7 +372,7 @@ If you run out of time, focus on this order:
 
 ---
 
-## 📞 Communication
+## Communication
 
 **Use a shared channel (Discord/Slack) to:**
 - Share the Sentry DSN
@@ -384,7 +384,7 @@ If you run out of time, focus on this order:
 
 ---
 
-## ✅ Final Checklist (Before Demo)
+## Final Checklist (Before Demo)
 
 ### Person 1
 - [ ] Backend running
@@ -416,4 +416,4 @@ If you run out of time, focus on this order:
 
 ---
 
-Good luck team! 🚀
+

@@ -2,9 +2,18 @@
 
 ## Overview
 
-The Accelerated Report App is a fast, reliable in-app reporting system that guarantees reports are never lost, even under failure conditions. It uses **Sentry** as its core observability engine to monitor critical user experiences.
+The Accelerated Report is a lightweight in-app reporting system designed to make submitting feedback fast and reliable. The main goal is to make sure reports are never lost, even when the network is unstable or the backend is under stress.
+
+The system is built around Sentry, which is used to monitor the full reporting flow as a critical user experience rather than just logging errors.
 
 ## System Architecture
+At a high level, the system has three parts:
+
+a frontend that simulates in-app reporting
+
+a Python backend that receives and stores reports
+
+observability and enrichment services that help developers understand what went wrong
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -85,21 +94,15 @@ Frontend shows "✅ Sent"
 ### 2. Failed Report Submission (Offline/Error)
 
 ```
-User submits report
-    ↓
-Frontend tries POST /reports
-    ↓
-Request fails (network error, timeout, 5xx)
-    ↓
-Frontend queues report in localStorage
-    ↓
-Shows "⏳ Queued for retry"
-    ↓
-Background retry every 5 seconds
-    ↓
-Eventually succeeds → remove from queue
-    ↓
-Shows "✅ Delivered"
+1. Failed Submission (Offline or Error)
+2. User submits a report
+3. Network or server error occurs
+4. Frontend stores the report in localStorage
+5. UI shows “Queued for retry”
+6. Background retry attempts continue
+7. Once successful, the report is removed from the queue
+8. UI updates to “Delivered”
+9. This ensures no report is silently lost.
 ```
 
 ### 3. Chaos Mode (Demo)
